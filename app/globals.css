@@ -2,26 +2,243 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 确保一致的背景色 */
+html, body {
+  background-color: #f8fafc;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* 冷色石板主题变量 - 优化对比度 */
+  --theme-primary: #475569;
+  --theme-secondary: #0284c7;
+  --theme-background: #f8fafc;
+  --theme-surface: #f1f5f9;
+  --theme-accent: #e0f2fe;
+  --theme-text-primary: #0f172a;
+  --theme-text-secondary: #334155;
+  --theme-text-muted: #475569;
+  --theme-border: #cbd5e1;
+}
+
+/* 主题相关的工具类 */
+@layer utilities {
+  .bg-theme-primary {
+    background-color: var(--theme-primary);
+  }
+
+  .bg-theme-secondary {
+    background-color: var(--theme-secondary);
+  }
+
+  .bg-theme-background {
+    background-color: var(--theme-background);
+  }
+
+  .bg-theme-surface {
+    background-color: var(--theme-surface);
+  }
+
+  .bg-theme-accent {
+    background-color: var(--theme-accent);
+  }
+
+  .text-theme-primary {
+    color: var(--theme-text-primary);
+  }
+
+  .text-theme-secondary {
+    color: var(--theme-text-secondary);
+  }
+
+  .text-theme-muted {
+    color: var(--theme-text-muted);
+  }
+
+  .border-theme {
+    border-color: var(--theme-border);
+  }
+
+  .border-theme-primary {
+    border-color: var(--theme-primary);
+  }
+
+  .border-theme-secondary {
+    border-color: var(--theme-secondary);
+  }
+
+  .hover\:bg-theme-accent:hover {
+    background-color: var(--theme-accent);
+  }
+
+  .hover\:border-theme-secondary:hover {
+    border-color: var(--theme-secondary);
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* 覆盖默认的shadcn/ui颜色 - 使用冷色石板主题 */
+@layer base {
+  :root {
+    --background: 210 40% 98%; /* #f8fafc */
+    --foreground: 222 84% 5%; /* #0f172a */
+    --card: 210 40% 98%; /* #f8fafc */
+    --card-foreground: 222 84% 5%; /* #0f172a */
+    --popover: 210 40% 98%; /* #f8fafc */
+    --popover-foreground: 222 84% 5%; /* #0f172a */
+    --primary: 215 25% 27%; /* #475569 */
+    --primary-foreground: 0 0% 100%; /* #ffffff */
+    --secondary: 210 40% 96%; /* #f1f5f9 */
+    --secondary-foreground: 215 25% 27%; /* #334155 */
+    --muted: 210 40% 96%; /* #f1f5f9 */
+    --muted-foreground: 215 25% 27%; /* #475569 */
+    --accent: 199 89% 92%; /* #e0f2fe */
+    --accent-foreground: 215 25% 27%; /* #334155 */
+    --destructive: 0 84% 60%; /* #ef4444 */
+    --destructive-foreground: 0 0% 100%; /* #ffffff */
+    --border: 214 32% 91%; /* #cbd5e1 */
+    --input: 214 32% 91%; /* #cbd5e1 */
+    --ring: 215 25% 27%; /* #475569 */
+    --radius: 0.75rem;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* 现代化工具类 */
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/80 border border-white/20;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .gradient-theme {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .smooth-transition {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* 额外的设计系统变量 */
+@layer base {
+  :root {
+    --sidebar-width: 280px;
+    --header-height: 64px;
+    --content-padding: 24px;
+    --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --card-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 210 70% 50%; /* 冷蓝色 */
+    --chart-2: 200 60% 45%; /* 深蓝色 */
+    --chart-3: 190 80% 55%; /* 青蓝色 */
+    --chart-4: 220 65% 60%; /* 浅蓝色 */
+    --chart-5: 180 75% 55%; /* 青色 */
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+
+
+  html {
+    @apply bg-background;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* 现代化滚动条 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  /* 现代化选择样式 */
+  ::selection {
+    @apply bg-theme-accent text-theme-primary;
+  }
+
+  /* 焦点样式优化 */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-theme-primary focus:ring-offset-2;
+  }
+
+  /* 强制按钮主题样式覆盖 */
+  button {
+    background-color: inherit;
+    color: inherit;
+  }
+
+
+
+
+
+  /* 确保outline按钮使用正确的主题色 */
+  button[class*="outline"] {
+    background-color: hsl(var(--background)) !important;
+    border-color: hsl(var(--border)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  button[class*="outline"]:hover {
+    background-color: hsl(var(--accent)) !important;
+    color: hsl(var(--accent-foreground)) !important;
+  }
+
+  /* 确保default按钮使用正确的主题色 */
+  button[class*="bg-primary"] {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  button[class*="bg-primary"]:hover {
+    background-color: hsl(var(--primary) / 0.9) !important;
   }
 }

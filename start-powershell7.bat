@@ -1,0 +1,3 @@
+@echo off
+echo 启动 PowerShell 7...
+"C:\Program Files\PowerShell\7\pwsh.exe"
