@@ -94,7 +94,7 @@ export function ImportPage() {
         ...result,
         headers,
         mergedCells: result.mergedCells || [],
-      })
+      } as any)
 
       if (result.success) {
         // 存储数据到对应单位
@@ -203,7 +203,7 @@ export function ImportPage() {
           <HeaderConfig
             headerRowCount={headerRowCount}
             onHeaderRowCountChange={setHeaderRowCount}
-            excelData={excelData}
+            excelData={excelData || undefined}
             mergedCells={mergedCells}
             trainType={trainType}
           />
@@ -231,7 +231,7 @@ export function ImportPage() {
             data={parseResult.data}
             schema={parseResult.schema}
             recordCount={parseResult.recordCount}
-            headers={parseResult.headers}
+            headers={(parseResult as any).headers}
           />
         )}
       </div>

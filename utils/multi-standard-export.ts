@@ -1,6 +1,6 @@
 import * as XLSX from 'xlsx'
 import type { ComparisonResult } from '@/contexts/multi-standard-comparison-context'
-import type { StaffingStandard } from '@/types'
+import type { StaffingStandard } from '@/types/staffing-rules'
 import { MultiStandardCalculator } from './multi-standard-calculator'
 
 // 岗位名称映射表（与组件中的保持一致）
@@ -117,15 +117,15 @@ export class MultiStandardExporter {
 
       data.push([
         standard.name,
-        standard.standardWorkHours,
-        result.highSpeed.totalStaff,
-        result.conventional.totalStaff,
-        result.otherProduction.totalStaff,
-        totalStaff,
-        Math.round(result.summary.coverageRate * 100),
-        result.summary.unmatchedTrains,
-        index === 0 ? '基准' : difference,
-        index === 0 ? '-' : Math.round(differencePercent * 100) / 100
+        String(standard.standardWorkHours),
+        String(result.highSpeed.totalStaff),
+        String(result.conventional.totalStaff),
+        String(result.otherProduction.totalStaff),
+        String(totalStaff),
+        String(Math.round(result.summary.coverageRate * 100)),
+        String(result.summary.unmatchedTrains),
+        index === 0 ? '基准' : String(difference),
+        index === 0 ? '-' : String(Math.round(differencePercent * 100) / 100)
       ])
     })
 
@@ -436,14 +436,14 @@ export class MultiStandardExporter {
     standards.forEach(standard => {
       data.push([
         standard.name,
-        standard.standardWorkHours,
-        Math.round(standard.reserveRates.mainProduction.beijing * 100),
-        Math.round(standard.reserveRates.mainProduction.shijiazhuang * 100),
-        Math.round(standard.reserveRates.mainProduction.tianjin * 100),
-        Math.round(standard.reserveRates.otherProduction * 100),
-        standard.highSpeedRules.length,
-        standard.conventionalRules.length,
-        standard.otherProductionRules.length
+        String(standard.standardWorkHours),
+        String(Math.round(standard.reserveRates.mainProduction.beijing * 100)),
+        String(Math.round(standard.reserveRates.mainProduction.shijiazhuang * 100)),
+        String(Math.round(standard.reserveRates.mainProduction.tianjin * 100)),
+        String(Math.round(standard.reserveRates.otherProduction * 100)),
+        String(standard.highSpeedRules.length),
+        String(standard.conventionalRules.length),
+        String(standard.otherProductionRules.length)
       ])
     })
 

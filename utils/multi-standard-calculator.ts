@@ -1,12 +1,15 @@
 import { HighSpeedRuleEngine } from './high-speed-rule-engine'
 import { ConventionalRuleEngine } from './conventional-rule-engine'
 import { OtherProductionRuleEngine } from './other-production-rule-engine'
-import type { 
-  TrainData, 
-  StaffingStandard, 
-  RailwayBureau
-} from '@/types'
+import type { StaffingStandard } from '@/types/staffing-rules'
+import type { DynamicTrainData } from '@/types/dynamic-train-data'
+import type { TrainUnit } from '@/types/dynamic-train-data'
 import type { ComparisonResult } from '@/contexts/multi-standard-comparison-context'
+
+type TrainData = Record<TrainUnit, {
+  highSpeed?: DynamicTrainData[]
+  conventional?: DynamicTrainData[]
+}>
 
 export class MultiStandardCalculator {
   /**
@@ -15,7 +18,7 @@ export class MultiStandardCalculator {
   async calculateMultipleStandards(
     trainData: TrainData,
     standards: StaffingStandard[],
-    selectedBureaus: RailwayBureau[]
+    selectedBureaus: TrainUnit[]
   ): Promise<Record<string, ComparisonResult>> {
     const results: Record<string, ComparisonResult> = {}
 
@@ -44,7 +47,7 @@ export class MultiStandardCalculator {
   async calculateMultipleStandardsByBureau(
     trainData: TrainData,
     standards: StaffingStandard[],
-    selectedBureaus: RailwayBureau[]
+    selectedBureaus: TrainUnit[]
   ): Promise<Record<string, Record<string, ComparisonResult>>> {
     const results: Record<string, Record<string, ComparisonResult>> = {}
 
@@ -77,7 +80,7 @@ export class MultiStandardCalculator {
   /**
    * 获取客运段中文名称
    */
-  private getBureauName(bureau: RailwayBureau): string {
+  private getBureauName(bureau: TrainUnit): string {
     const bureauNames = {
       beijing: '北京客运段',
       shijiazhuang: '石家庄客运段',
@@ -92,7 +95,7 @@ export class MultiStandardCalculator {
   private async calculateSingleStandard(
     trainData: TrainData,
     standard: StaffingStandard,
-    selectedBureaus: RailwayBureau[]
+    selectedBureaus: TrainUnit[]
   ): Promise<Omit<ComparisonResult, 'standardId' | 'standardName'>> {
     // 合并选定客运段的数据
     const combinedData = this.combineSelectedBureauData(trainData, selectedBureaus)
@@ -145,7 +148,7 @@ export class MultiStandardCalculator {
   /**
    * 合并选定客运段的数据
    */
-  private combineSelectedBureauData(trainData: TrainData, selectedBureaus: RailwayBureau[]) {
+  private combineSelectedBureauData(trainData: TrainData, selectedBureaus: TrainUnit[]) {
     const combinedHighSpeed: any[] = []
     const combinedConventional: any[] = []
 

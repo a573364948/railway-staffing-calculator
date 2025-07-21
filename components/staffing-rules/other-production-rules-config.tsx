@@ -200,7 +200,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
           </div>
         ) : (
           <div className="text-center py-8 text-muted-foreground">
-            暂无其余生产规则，点击"添加规则"开始配置
+            暂无其余生产规则，点击&ldquo;添加规则&rdquo;开始配置
           </div>
         )}
 
@@ -354,6 +354,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
                                     segments: {
                                       ...editingRule.config.segments,
                                       highSpeed: {
+                                        minValue: undefined,
                                         ...editingRule.config.segments?.highSpeed,
                                         percentage: value
                                       }
@@ -377,6 +378,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
                                       segments: {
                                         ...editingRule.config.segments,
                                         highSpeed: {
+                                          percentage: 0,
                                           ...editingRule.config.segments?.highSpeed,
                                           minValue: value
                                         }
@@ -399,6 +401,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
                                       segments: {
                                         ...editingRule.config.segments,
                                         highSpeed: {
+                                          percentage: 0,
                                           ...editingRule.config.segments?.highSpeed,
                                           maxValue: value
                                         }
@@ -428,6 +431,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
                                     segments: {
                                       ...editingRule.config.segments,
                                       conventional: {
+                                        minValue: undefined,
                                         ...editingRule.config.segments?.conventional,
                                         percentage: value
                                       }
@@ -451,6 +455,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
                                       segments: {
                                         ...editingRule.config.segments,
                                         conventional: {
+                                          percentage: 0,
                                           ...editingRule.config.segments?.conventional,
                                           minValue: value
                                         }
@@ -473,6 +478,7 @@ export function OtherProductionRulesConfig({ rules, onChange }: OtherProductionR
                                       segments: {
                                         ...editingRule.config.segments,
                                         conventional: {
+                                          percentage: 0,
                                           ...editingRule.config.segments?.conventional,
                                           maxValue: value
                                         }

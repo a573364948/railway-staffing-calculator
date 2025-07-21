@@ -91,7 +91,7 @@ export function MergedCellsPreview({ data, mergedCells, headerRowCount }: Merged
                       列范围: {merge.startCol + 1} - {merge.endCol + 1}
                     </p>
                     {data[merge.startRow] && data[merge.startRow][merge.startCol] && (
-                      <p className="mt-1 font-medium text-gray-800">内容: "{data[merge.startRow][merge.startCol]}"</p>
+                      <p className="mt-1 font-medium text-gray-800">内容: &ldquo;{data[merge.startRow][merge.startCol]}&rdquo;</p>
                     )}
                   </div>
                 </div>
@@ -176,8 +176,8 @@ export function MergedCellsPreview({ data, mergedCells, headerRowCount }: Merged
               <p className="font-medium">处理结果</p>
               <p className="mt-1">
                 • 橙色背景的单元格表示合并单元格区域
-                <br />• "合并起点"标识合并区域的左上角单元格
-                <br />• "合并区域"标识合并区域内的其他单元格
+                <br />• &ldquo;合并起点&rdquo;标识合并区域的左上角单元格
+                <br />• &ldquo;合并区域&rdquo;标识合并区域内的其他单元格
                 <br />• 合并单元格的值已自动填充到整个合并区域
               </p>
             </div>

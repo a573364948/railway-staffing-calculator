@@ -12,13 +12,14 @@ import { Separator } from '@/components/ui/separator'
 import { Download, Calculator, BarChart3, TrendingUp, AlertCircle, Building } from 'lucide-react'
 import { useTrainData } from '@/contexts/train-data-context'
 import { useStaffingRules } from '@/contexts/staffing-rules-context'
-import { MultiStandardComparisonProvider, useMultiStandardComparison } from '@/contexts/multi-standard-comparison-context'
+import { MultiStandardComparisonProvider, useMultiStandardComparison, type ComparisonResult } from '@/contexts/multi-standard-comparison-context'
 import { MultiStandardCalculator } from '@/utils/multi-standard-calculator'
 import { MultiStandardExporter } from '@/utils/multi-standard-export'
 import { DifferenceAnalysis } from './difference-analysis'
-import type { StaffingStandard, RailwayBureau } from '@/types'
+import type { StaffingStandard } from '@/types/staffing-rules'
+import type { TrainUnit } from '@/types/dynamic-train-data'
 
-const RAILWAY_BUREAUS: { value: RailwayBureau; label: string }[] = [
+const RAILWAY_BUREAUS: { value: TrainUnit; label: string }[] = [
   { value: 'beijing', label: '北京客运段' },
   { value: 'shijiazhuang', label: '石家庄客运段' },
   { value: 'tianjin', label: '天津客运段' }
@@ -378,7 +379,7 @@ function ComparisonResults() {
 }
 
 // 共用的客运段名称映射函数
-const getBureauName = (bureau: RailwayBureau): string => {
+const getBureauName = (bureau: TrainUnit): string => {
   const bureauNames = {
     beijing: '北京客运段',
     shijiazhuang: '石家庄客运段',
@@ -394,7 +395,7 @@ function BureauGroupedComparison({
 }: {
   groupedResults: Record<string, Record<string, ComparisonResult>>
   standards: StaffingStandard[]
-  selectedBureaus: RailwayBureau[]
+  selectedBureaus: TrainUnit[]
 }) {
 
   return (
@@ -509,7 +510,7 @@ function BureauGroupedHighSpeedComparison({
 }: {
   groupedResults: Record<string, Record<string, ComparisonResult>>
   standards: StaffingStandard[]
-  selectedBureaus: RailwayBureau[]
+  selectedBureaus: TrainUnit[]
 }) {
 
   return (
@@ -551,7 +552,7 @@ function BureauGroupedConventionalComparison({
 }: {
   groupedResults: Record<string, Record<string, ComparisonResult>>
   standards: StaffingStandard[]
-  selectedBureaus: RailwayBureau[]
+  selectedBureaus: TrainUnit[]
 }) {
 
   return (
@@ -593,7 +594,7 @@ function BureauGroupedDifferenceAnalysis({
 }: {
   groupedResults: Record<string, Record<string, ComparisonResult>>
   standards: StaffingStandard[]
-  selectedBureaus: RailwayBureau[]
+  selectedBureaus: TrainUnit[]
 }) {
 
   return (

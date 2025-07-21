@@ -7,6 +7,7 @@ import type {
   BackupValidation,
   BACKUP_VERSION 
 } from '@/types/backup'
+import type { DynamicTrainData } from '@/types/dynamic-train-data'
 
 export class BackupManager {
   private static readonly BACKUP_VERSION = '1.0.0'
@@ -339,9 +340,9 @@ export class BackupManager {
         // 构造按客运段分组的数据结构
         const currentUnit = data.trainData.currentUnit || 'beijing'
         const trainDataByUnit = {
-          beijing: { highSpeedData: [], conventionalData: [] },
-          shijiazhuang: { highSpeedData: [], conventionalData: [] },
-          tianjin: { highSpeedData: [], conventionalData: [] }
+          beijing: { highSpeedData: [] as DynamicTrainData[], conventionalData: [] as DynamicTrainData[] },
+          shijiazhuang: { highSpeedData: [] as DynamicTrainData[], conventionalData: [] as DynamicTrainData[] },
+          tianjin: { highSpeedData: [] as DynamicTrainData[], conventionalData: [] as DynamicTrainData[] }
         }
         
         // 将数据分配到当前单位

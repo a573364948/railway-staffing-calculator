@@ -174,7 +174,7 @@ export function DisplayPage() {
 
     // 为分页数据重新计算合并信息
     Object.entries(pageGroupedBySequence).forEach(([sequence, pageItems]) => {
-      pageItems.forEach(({ item, pageIndex }, itemIndex) => {
+      (pageItems as Array<{ item: any; pageIndex: number }>).forEach(({ item, pageIndex }, itemIndex) => {
         pageMergeInfo[pageIndex] = {}
 
         if (currentSchema?.headers) {
@@ -183,13 +183,13 @@ export function DisplayPage() {
 
             if (itemIndex === 0) {
               // 检查这个字段在当前序号组内是否所有值都相同
-              const values = pageItems.map(pi => pi.item[fieldKey])
+              const values = (pageItems as Array<{ item: any; pageIndex: number }>).map(pi => pi.item[fieldKey])
               const uniqueValues = [...new Set(values.filter(v => v !== null && v !== undefined && v !== ''))]
 
               if (uniqueValues.length <= 1) {
                 // 值相同，需要合并
                 pageMergeInfo[pageIndex][fieldKey] = {
-                  rowspan: pageItems.length,
+                  rowspan: (pageItems as Array<{ item: any; pageIndex: number }>).length,
                   isFirst: true
                 }
               } else {
@@ -201,7 +201,7 @@ export function DisplayPage() {
               }
             } else {
               // 非第一行，检查是否需要隐藏（被合并）
-              const firstRowValues = pageItems.map(pi => pi.item[fieldKey])
+              const firstRowValues = (pageItems as Array<{ item: any; pageIndex: number }>).map(pi => pi.item[fieldKey])
               const uniqueValues = [...new Set(firstRowValues.filter(v => v !== null && v !== undefined && v !== ''))]
 
               if (uniqueValues.length <= 1) {

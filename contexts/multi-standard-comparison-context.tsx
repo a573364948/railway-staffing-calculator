@@ -1,7 +1,7 @@
 "use client"
 
 import React, { createContext, useContext, useReducer, ReactNode } from 'react'
-import type { RailwayBureau } from '@/types'
+import type { TrainUnit } from '@/types/dynamic-train-data'
 
 export interface ComparisonResult {
   standardId: string
@@ -31,7 +31,7 @@ export interface ComparisonResult {
 
 export interface MultiStandardComparisonState {
   selectedStandards: string[]
-  selectedBureaus: RailwayBureau[]
+  selectedBureaus: TrainUnit[]
   comparisonResults: Record<string, ComparisonResult> | null
   bureauGroupedResults: Record<string, Record<string, ComparisonResult>> | null
   displayMode: 'merged' | 'grouped'
@@ -43,8 +43,8 @@ type MultiStandardComparisonAction =
   | { type: 'TOGGLE_STANDARD'; payload: string }
   | { type: 'CLEAR_ALL_STANDARDS' }
   | { type: 'SET_SELECTED_STANDARDS'; payload: string[] }
-  | { type: 'TOGGLE_BUREAU'; payload: RailwayBureau }
-  | { type: 'SET_SELECTED_BUREAUS'; payload: RailwayBureau[] }
+  | { type: 'TOGGLE_BUREAU'; payload: TrainUnit }
+  | { type: 'SET_SELECTED_BUREAUS'; payload: TrainUnit[] }
   | { type: 'SET_COMPARISON_RESULTS'; payload: Record<string, ComparisonResult> | null }
   | { type: 'SET_BUREAU_GROUPED_RESULTS'; payload: Record<string, Record<string, ComparisonResult>> | null }
   | { type: 'SET_DISPLAY_MODE'; payload: 'merged' | 'grouped' }
@@ -212,10 +212,10 @@ export function useMultiStandardComparison() {
     },
 
     // Actions for bureaus
-    toggleBureau: (bureau: RailwayBureau) => {
+    toggleBureau: (bureau: TrainUnit) => {
       dispatch({ type: 'TOGGLE_BUREAU', payload: bureau })
     },
-    setSelectedBureaus: (bureaus: RailwayBureau[]) => {
+    setSelectedBureaus: (bureaus: TrainUnit[]) => {
       dispatch({ type: 'SET_SELECTED_BUREAUS', payload: bureaus })
     },
 
@@ -275,4 +275,4 @@ export function useMultiStandardComparison() {
 }
 
 // 导出类型
-export type { MultiStandardComparisonState, MultiStandardComparisonAction }
+export type { MultiStandardComparisonAction }

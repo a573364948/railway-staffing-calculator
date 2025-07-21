@@ -350,8 +350,8 @@ export function RuleBasedStaffing() {
             category,
             formationDetails,
             runningTime,
-            unmatched.reason,
-            unmatched.suggestedAction
+            '未匹配到规则',
+            '请在规则配置页面添加相应规则'
           ])
         })
 
@@ -493,7 +493,7 @@ export function RuleBasedStaffing() {
           <CardContent className="p-4 text-center">
             <CheckCircle className="h-8 w-8 mx-auto mb-2 text-purple-600" />
             <div className="text-2xl font-bold">
-              {currentResult && 'summary' in currentResult ? currentResult.summary.matchedTrains : 0}
+              {currentResult && 'summary' in currentResult && 'matchedTrains' in currentResult.summary ? currentResult.summary.matchedTrains : 0}
             </div>
             <div className="text-sm text-muted-foreground">已匹配</div>
           </CardContent>
@@ -586,15 +586,29 @@ export function RuleBasedStaffing() {
             </div>
 
             {/* 未匹配列车警告 */}
-            {((calculationType === 'highSpeed' && (currentResult as HighSpeedUnitStaffingResult).unmatchedTrains.length > 0) ||
-              (calculationType === 'conventional' && (currentResult as ConventionalUnitStaffingResult).unmatchedTrains.length > 0)) && (
+            {(() => {
+              if (!currentResult || !('unmatchedTrains' in currentResult)) return false
+              if (calculationType === 'highSpeed') {
+                return (currentResult as HighSpeedUnitStaffingResult).unmatchedTrains.length > 0
+              }
+              if (calculationType === 'conventional') {
+                return (currentResult as ConventionalUnitStaffingResult).unmatchedTrains.length > 0
+              }
+              return false
+            })() && (
               <Alert>
                 <AlertTriangle className="h-4 w-4" />
                 <AlertDescription>
-                  发现 {calculationType === 'highSpeed'
-                    ? (currentResult as HighSpeedUnitStaffingResult).unmatchedTrains.length
-                    : (currentResult as ConventionalUnitStaffingResult).unmatchedTrains.length
-                  } 趟列车未能匹配定员规则。
+                  发现 {(() => {
+                    if (!currentResult || !('unmatchedTrains' in currentResult)) return 0
+                    if (calculationType === 'highSpeed') {
+                      return (currentResult as HighSpeedUnitStaffingResult).unmatchedTrains.length
+                    }
+                    if (calculationType === 'conventional') {
+                      return (currentResult as ConventionalUnitStaffingResult).unmatchedTrains.length
+                    }
+                    return 0
+                  })()} 趟列车未能匹配定员规则。
                   <Button
                     variant="link"
                     className="p-0 h-auto font-normal"
@@ -940,7 +954,7 @@ export function RuleBasedStaffing() {
                             ))}
                             {!showAllTrains && filteredResults.length > 10 && (
                               <div className="text-sm text-gray-500 text-center">
-                                显示 {displayResults.length}/{filteredResults.length} 条结果，点击"显示全部"查看更多
+                                显示 {displayResults.length}/{filteredResults.length} 条结果，点击&ldquo;显示全部&rdquo;查看更多
                               </div>
                             )}
                             {searchTerm && filteredResults.length === 0 && (
@@ -1066,7 +1080,7 @@ export function RuleBasedStaffing() {
               其余生产定员基于高铁和普速的总定员计算
             </p>
             <p className="text-sm text-orange-600">
-              请先完成高铁或普速定员计算，然后点击"开始计算其余生产"
+              请先完成高铁或普速定员计算，然后点击&ldquo;开始计算其余生产&rdquo;
             </p>
           </CardContent>
         </Card>

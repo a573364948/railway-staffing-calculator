@@ -22,7 +22,7 @@ import {
 } from "lucide-react"
 import { DifferenceAnalyzer, type TrainDifference, type DifferenceStats } from "@/utils/difference-analyzer"
 import type { ComparisonResult } from "@/contexts/multi-standard-comparison-context"
-import type { StaffingStandard } from "@/types"
+import type { StaffingStandard } from "@/types/staffing-rules"
 
 interface DifferenceAnalysisProps {
   results: Record<string, ComparisonResult>
@@ -226,7 +226,7 @@ export function DifferenceAnalysis({ results, standards }: DifferenceAnalysisPro
           <CardContent>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-sm">高（>20人）</span>
+                <span className="text-sm">高（&gt;20人）</span>
                 <Badge variant="destructive">{analysisData.stats.severityDistribution.high}</Badge>
               </div>
               <div className="flex justify-between items-center">

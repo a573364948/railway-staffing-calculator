@@ -45,7 +45,7 @@ const saveResults = (results: any) => {
 
 export function useDataStatistics(refreshKey: number = 0) {
   const { standards } = useStaffingRules()
-  const { trainData, getDataByUnit } = useTrainData()
+  const { unitData, getDataByUnit } = useTrainData()
   
   const [syncStatus, setSyncStatus] = useState<SyncStatus>({
     isLoading: false,
@@ -275,7 +275,7 @@ export function useDataStatistics(refreshKey: number = 0) {
           keyDifferences: [],
           detailedRules: standard.highSpeedRules?.map(rule => ({
             name: rule.name,
-            description: rule.description,
+            description: rule.description || "",
             conditions: rule.conditions,
             staffing: rule.staffing
           })) || []
@@ -286,7 +286,7 @@ export function useDataStatistics(refreshKey: number = 0) {
           keyDifferences: [],
           detailedRules: standard.conventionalRules?.map(rule => ({
             name: rule.name,
-            description: rule.description,
+            description: rule.description || "",
             conditions: rule.conditions,
             staffing: rule.staffing
           })) || []
@@ -297,7 +297,7 @@ export function useDataStatistics(refreshKey: number = 0) {
           keyDifferences: [],
           detailedRules: standard.otherProductionRules?.map(rule => ({
             name: rule.name,
-            description: rule.description,
+            description: rule.description || "",
             configType: rule.configType,
             config: rule.config
           })) || []

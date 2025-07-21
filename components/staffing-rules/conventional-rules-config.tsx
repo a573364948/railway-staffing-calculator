@@ -182,13 +182,13 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
           trainDutyOfficer: 0
         },
         baggageStaffConfig: rule.staffing.baggageStaffConfig || {
-          enabled: (rule.conditions?.baggageCarCount || 0) > 0,
-          staffPerTrain: (rule.conditions?.baggageCarCount || 0) > 0 ? 1 : 0
+          enabled: ((rule.conditions as any)?.baggageCarCount || 0) > 0,
+          staffPerTrain: ((rule.conditions as any)?.baggageCarCount || 0) > 0 ? 1 : 0
         }
       },
       conditions: {
         ...rule.conditions,
-        baggageCarCount: rule.conditions.baggageCarCount || 0
+        ...(((rule.conditions as any)?.baggageCarCount !== undefined) ? { baggageCarCount: (rule.conditions as any).baggageCarCount } : {})
       }
     }
   }
@@ -371,10 +371,10 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
       conditions: {
         runningTimeRange: isInternational ? undefined : timeRange as any,
         trainTypes: [trainType],
-        baggageCarCount: baggageConfig.baggageCarCount, // 从数据自动分析
         isInternational,
-        hasRestaurant: false
-      },
+        hasRestaurant: false,
+        ...(baggageConfig.baggageCarCount ? { baggageCarCount: baggageConfig.baggageCarCount } : {}) // 从数据自动分析
+      } as any,
       staffing: {
         trainConductor: timeRange === 'over24' ? 2 : 1,
         trainAttendants: {
@@ -413,10 +413,10 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
       conditions: {
         runningTimeRange: 'under4',
         trainTypes: ['正常列车'], // 默认为正常列车
-        baggageCarCount: baggageConfig.baggageCarCount, // 从数据自动分析
         isInternational: false,
-        hasRestaurant: false
-      },
+        hasRestaurant: false,
+        ...(baggageConfig.baggageCarCount ? { baggageCarCount: baggageConfig.baggageCarCount } : {}) // 从数据自动分析
+      } as any,
       staffing: {
         trainConductor: 1,
         trainAttendants: {
@@ -644,6 +644,8 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
         staffing: {
           ...editingRule.staffing,
           baggageStaffConfig: {
+            enabled: false,
+            staffPerTrain: 0,
             ...editingRule.staffing.baggageStaffConfig,
             ...updates
           }
@@ -659,6 +661,8 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
         staffing: {
           ...editingRule.staffing,
           diningCarStaff: {
+            enabled: false,
+            rules: { under24h: 0, over24h: 0 },
             ...editingRule.staffing.diningCarStaff,
             ...updates
           }
@@ -674,6 +678,8 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
         staffing: {
           ...editingRule.staffing,
           salesStaff: {
+            enabled: false,
+            staffPerGroup: 0,
             ...editingRule.staffing.salesStaff,
             ...updates
           }
@@ -1565,6 +1571,7 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
                       onChange={(e) => updateDiningCarStaffConfig({
                         enabled: true,
                         rules: {
+                          over24h: 0,
                           ...editingRule.staffing.diningCarStaff?.rules,
                           under24h: parseInt(e.target.value) || 0
                         }
@@ -1586,6 +1593,7 @@ export function ConventionalRulesConfig({ rules, onChange }: ConventionalRulesCo
                       onChange={(e) => updateDiningCarStaffConfig({
                         enabled: true,
                         rules: {
+                          under24h: 0,
                           ...editingRule.staffing.diningCarStaff?.rules,
                           over24h: parseInt(e.target.value) || 0
                         }

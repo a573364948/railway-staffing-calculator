@@ -1,5 +1,5 @@
 import type { ComparisonResult } from '@/contexts/multi-standard-comparison-context'
-import type { StaffingStandard } from '@/types'
+import type { StaffingStandard } from '@/types/staffing-rules'
 
 // 车次差异数据结构 - 纯客观数据，无任何建议
 export interface TrainDifference {
@@ -199,7 +199,7 @@ export class DifferenceAnalyzer {
       if (trainResult) {
         // 从staffing对象中计算总定员（高铁通常有trainConductor, trainAttendant等）
         const staffing = trainResult.staffing || {}
-        const totalStaff = Object.values(staffing).reduce((sum, count) => {
+        const totalStaff = Object.values(staffing).reduce((sum: number, count) => {
           return sum + (typeof count === 'number' ? count : 0)
         }, 0)
         

@@ -300,7 +300,7 @@ export function DataStatistics() {
         <Alert>
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            尚未进行定员计算，点击上方的"一键计算"按钮开始计算所有路局的定员数据
+            尚未进行定员计算，点击上方的&ldquo;一键计算&rdquo;按钮开始计算所有路局的定员数据
           </AlertDescription>
         </Alert>
       )}

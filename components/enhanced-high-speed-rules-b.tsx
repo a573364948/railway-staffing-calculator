@@ -152,7 +152,7 @@ export function EnhancedHighSpeedRulesB() {
         console.log('数据检查出错:', error)
       }
     }
-  }, [])
+  }, [trainDataContext])
 
   // 从 StaffingRulesContext 获取当前铁路局信息
   const currentBureau = currentStaffingStandard?.bureau || "beijing"
@@ -426,8 +426,8 @@ export function EnhancedHighSpeedRulesB() {
     const newRecommendations: RecommendedRule[] = []
 
     Object.entries(formationGroups).forEach(([formation, trains]) => {
-      const shortTrains = trains.filter(t => getTrainRunningTime(t) < 12)
-      const longTrains = trains.filter(t => getTrainRunningTime(t) >= 12)
+      const shortTrains = (trains as any[]).filter((t: any) => getTrainRunningTime(t) < 12)
+      const longTrains = (trains as any[]).filter((t: any) => getTrainRunningTime(t) >= 12)
 
       if (shortTrains.length > 0) {
         newRecommendations.push({

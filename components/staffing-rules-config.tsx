@@ -326,7 +326,7 @@ export function StaffingRulesConfig() {
                       if (standard) setCurrentStandard(standard)
                     }
                   }}
-                  disabled={editingStandard && !editingStandard.id}
+                  disabled={!!(editingStandard && !editingStandard.id)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="请选择定员标准" />
@@ -362,7 +362,7 @@ export function StaffingRulesConfig() {
                     <span className="text-sm font-medium text-slate-600">配置状态:</span>
                     {getStatusBadge(completeness.overall, '整体')}
                     <Badge variant="outline" className="text-xs">
-                      {completeness.stats.total} 条规则
+                      {completeness.stats?.total || 0} 条规则
                     </Badge>
                     <Badge variant="outline" className="text-xs">
                       {Object.values(expandedSections).filter(Boolean).length}/4 已展开
@@ -491,7 +491,10 @@ export function StaffingRulesConfig() {
                             onChange={(e) => updateEditingStandard({
                               reserveRates: {
                                 ...editingStandard?.reserveRates,
+                                otherProduction: editingStandard?.reserveRates?.otherProduction ?? 5,
                                 mainProduction: {
+                                  shijiazhuang: 8,
+                                  tianjin: 8,
                                   ...editingStandard?.reserveRates?.mainProduction,
                                   beijing: parseFloat(e.target.value) || 0
                                 }
@@ -510,7 +513,10 @@ export function StaffingRulesConfig() {
                             onChange={(e) => updateEditingStandard({
                               reserveRates: {
                                 ...editingStandard?.reserveRates,
+                                otherProduction: editingStandard?.reserveRates?.otherProduction ?? 5,
                                 mainProduction: {
+                                  beijing: 8,
+                                  tianjin: 8,
                                   ...editingStandard?.reserveRates?.mainProduction,
                                   shijiazhuang: parseFloat(e.target.value) || 0
                                 }
@@ -529,7 +535,10 @@ export function StaffingRulesConfig() {
                             onChange={(e) => updateEditingStandard({
                               reserveRates: {
                                 ...editingStandard?.reserveRates,
+                                otherProduction: editingStandard?.reserveRates?.otherProduction ?? 5,
                                 mainProduction: {
+                                  beijing: 8,
+                                  shijiazhuang: 8,
                                   ...editingStandard?.reserveRates?.mainProduction,
                                   tianjin: parseFloat(e.target.value) || 0
                                 }
@@ -552,6 +561,11 @@ export function StaffingRulesConfig() {
                         value={currentData.reserveRates?.otherProduction ?? 5}
                         onChange={(e) => updateEditingStandard({
                           reserveRates: {
+                            mainProduction: {
+                              beijing: 8,
+                              shijiazhuang: 8,
+                              tianjin: 8
+                            },
                             ...editingStandard?.reserveRates,
                             otherProduction: parseFloat(e.target.value) || 0
                           }
@@ -572,19 +586,19 @@ export function StaffingRulesConfig() {
                   <TabsTrigger value="highSpeed" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white flex items-center justify-center space-x-2">
                     <span>高铁定员规则</span>
                     <Badge variant="outline" className="bg-blue-50 text-blue-600 text-xs">
-                      {completeness.stats.highSpeed}
+                      {completeness.stats?.highSpeed ?? 0}
                     </Badge>
                   </TabsTrigger>
                   <TabsTrigger value="conventional" className="data-[state=active]:bg-green-500 data-[state=active]:text-white flex items-center justify-center space-x-2">
                     <span>普速定员规则</span>
                     <Badge variant="outline" className="bg-green-50 text-green-600 text-xs">
-                      {completeness.stats.conventional}
+                      {completeness.stats?.conventional ?? 0}
                     </Badge>
                   </TabsTrigger>
                   <TabsTrigger value="otherProduction" className="data-[state=active]:bg-purple-500 data-[state=active]:text-white flex items-center justify-center space-x-2">
                     <span>其余生产规则</span>
                     <Badge variant="outline" className="bg-purple-50 text-purple-600 text-xs">
-                      {completeness.stats.otherProduction}
+                      {completeness.stats?.otherProduction ?? 0}
                     </Badge>
                   </TabsTrigger>
                 </TabsList>
@@ -596,10 +610,10 @@ export function StaffingRulesConfig() {
                       <div className="flex items-center space-x-2">
                         <h3 className="font-medium text-blue-900">高铁动车组定员规则</h3>
                         <Badge variant="outline" className="bg-blue-100 text-blue-700">
-                          {completeness.stats.highSpeed} 条规则
+                          {completeness.stats?.highSpeed ?? 0} 条规则
                         </Badge>
                       </div>
-                      {completeness.stats.highSpeed === 0 && (
+                      {(completeness.stats?.highSpeed ?? 0) === 0 && (
                         <Badge variant="outline" className="text-orange-600 border-orange-300">
                           <AlertCircle className="h-3 w-3 mr-1" />
                           待配置
@@ -631,10 +645,10 @@ export function StaffingRulesConfig() {
                       <div className="flex items-center space-x-2">
                         <h3 className="font-medium text-green-900">普速列车定员规则</h3>
                         <Badge variant="outline" className="bg-green-100 text-green-700">
-                          {completeness.stats.conventional} 条规则
+                          {completeness.stats?.conventional ?? 0} 条规则
                         </Badge>
                       </div>
-                      {completeness.stats.conventional === 0 && (
+                      {(completeness.stats?.conventional ?? 0) === 0 && (
                         <Badge variant="outline" className="text-orange-600 border-orange-300">
                           <AlertCircle className="h-3 w-3 mr-1" />
                           待配置
@@ -669,10 +683,10 @@ export function StaffingRulesConfig() {
                       <div className="flex items-center space-x-2">
                         <h3 className="font-medium text-purple-900">其余生产岗位规则</h3>
                         <Badge variant="outline" className="bg-purple-100 text-purple-700">
-                          {completeness.stats.otherProduction} 条规则
+                          {completeness.stats?.otherProduction ?? 0} 条规则
                         </Badge>
                       </div>
-                      {completeness.stats.otherProduction === 0 && (
+                      {(completeness.stats?.otherProduction ?? 0) === 0 && (
                         <Badge variant="outline" className="text-orange-600 border-orange-300">
                           <AlertCircle className="h-3 w-3 mr-1" />
                           待配置
