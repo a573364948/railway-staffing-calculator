@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 铁路客运段定员计算系统
 
-## Getting Started
+一个基于 Next.js 开发的智能化铁路客运段定员计算系统，支持多标准对比分析和按客运段分组显示。
 
-First, run the development server:
+## 🚀 功能特性
 
+### 核心功能
+- **智能定员计算**: 支持高铁、普速、其余生产人员的自动化定员计算
+- **多标准对比**: 同时对比多个定员标准，分析差异
+- **分组显示**: 按客运段分组显示结果，提高数据可见性
+- **差异分析**: 车次级别的定员差异对比和统计分析
+
+### 数据管理
+- **Excel导入**: 支持动态Excel文件导入和字段映射
+- **数据预览**: 实时数据预览和验证
+- **规则配置**: 灵活的定员规则配置和管理
+- **结果导出**: 支持多种格式的计算结果导出
+
+### 用户体验
+- **响应式设计**: 适配各种设备屏幕
+- **实时计算**: 快速响应的计算引擎
+- **可视化图表**: 直观的数据展示和对比
+- **操作友好**: 简洁直观的用户界面
+
+## 🛠️ 技术栈
+
+- **前端框架**: Next.js 14
+- **UI组件**: Radix UI + Tailwind CSS
+- **状态管理**: React Context
+- **图表库**: Recharts
+- **文件处理**: XLSX
+- **类型检查**: TypeScript
+- **部署平台**: Vercel
+
+## 📦 快速开始
+
+### 环境要求
+- Node.js 18+
+- npm 或 yarn
+
+### 安装依赖
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 启动开发服务器
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 构建生产版本
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## 📊 使用指南
 
-To learn more about Next.js, take a look at the following resources:
+### 1. 数据导入
+- 点击"数据导入"上传Excel文件
+- 配置字段映射关系
+- 预览并确认数据
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. 规则配置
+- 进入"规则配置"设置定员标准
+- 配置高铁、普速、其余生产规则
+- 保存并应用规则
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. 多标准对比
+- 选择要对比的定员标准
+- 选择目标客运段
+- 选择显示模式（合并/分组）
+- 执行计算并查看结果
 
-## Deploy on Vercel
+### 4. 差异分析
+- 在对比结果中切换到"差异分析"
+- 查看车次级别的定员差异
+- 分析差异统计和分布
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔧 配置说明
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 环境变量
+创建 `.env.local` 文件：
+```bash
+NODE_ENV=development
+```
+
+### 定员规则
+系统支持以下规则类型：
+- 高铁定员规则
+- 普速定员规则
+- 其余生产人员规则
+
+## 📈 部署
+
+### Vercel部署
+1. 推送代码到GitHub
+2. 在Vercel中导入仓库
+3. 配置构建设置
+4. 部署完成
+
+### 其他平台
+项目支持部署到任何支持Next.js的平台。
+
+## 🤝 贡献
+
+欢迎提交Issue和Pull Request来改进项目。
+
+## 📄 许可证
+
+MIT License
+
+## 📞 联系方式
+
+如有问题或建议，请通过GitHub Issues联系。
