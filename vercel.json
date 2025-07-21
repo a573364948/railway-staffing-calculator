@@ -1,24 +1,4 @@
 {
-  "version": 2,
-  "name": "railway-staffing-calculator",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "functions": {
-    "app/**/*.{js,ts,tsx}": {
-      "maxDuration": 30
-    }
-  }
+  "framework": "nextjs",
+  "buildCommand": "npm run build"
 }
